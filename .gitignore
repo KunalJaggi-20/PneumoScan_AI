@@ -13,3 +13,6 @@ model/*.pth
 *.jpeg
 !confusion_matrix.png
 !metrics_chart.png
+!static/*.jpg
+!static/*.jpeg
+!static/*.png
