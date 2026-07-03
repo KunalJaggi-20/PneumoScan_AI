@@ -25,9 +25,15 @@ def main():
         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
     ])
     
+    # Try no normalization
+    t_none = transforms.Compose([
+        transforms.Resize((224, 224)),
+        transforms.ToTensor()
+    ])
+    
     images = [
-        ("Pneumonia_x_ray", "c:/Users/Kunal Jaggi/Downloads/Pneumonia_x_ray.jpg"),
-        ("Xray_Chest", "c:/Users/Kunal Jaggi/Downloads/Xray_Chest.jpeg")
+        ("demo_pneumonia", "static/demo_pneumonia.jpg"),
+        ("demo_normal", "static/demo_normal.jpg")
     ]
     
     for name, path in images:
@@ -37,10 +43,13 @@ def main():
         out_im = torch.softmax(model(t_imagenet(img).unsqueeze(0)), dim=1)
         # HuggingFace preprocessing
         out_hf = torch.softmax(model(t_huggingface(img).unsqueeze(0)), dim=1)
+        # No normalization
+        out_no = torch.softmax(model(t_none(img).unsqueeze(0)), dim=1)
         
         print(f"=== {name} ===")
         print(f"  ImageNet -> Normal: {out_im[0][0].item():.4f}, Pneumonia: {out_im[0][1].item():.4f}")
-        print(f"  HuggingFace -> Normal: {out_hf[0][0].item():.4f}, Pneumonia: {out_hf[0][1].item():.4f}\n")
+        print(f"  HuggingFace -> Normal: {out_hf[0][0].item():.4f}, Pneumonia: {out_hf[0][1].item():.4f}")
+        print(f"  No Normalization -> Normal: {out_no[0][0].item():.4f}, Pneumonia: {out_no[0][1].item():.4f}\n")
 
 if __name__ == "__main__":
     main()

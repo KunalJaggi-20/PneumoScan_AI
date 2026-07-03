@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chest X-Ray Pneumonia Analyzer</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Style Sheet -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="background-glow"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-area">
+                <span class="pulse-icon"></span>
+                <h1>PneumoScan <span>AI</span></h1>
+            </div>
+            <p class="subtitle">Deep Learning Diagnostic Assistant for Chest Radiographs</p>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="workspace">
+            <!-- Left Panel: Input & Controls -->
+            <section class="control-panel card">
+                <h2>Analyze X-Ray</h2>
+                <p class="section-desc">Select a built-in demo image or upload a custom chest radiograph.</p>
+
+                <!-- Demo Selection -->
+                <div class="demo-section">
+                    <h3>Try Demo Images</h3>
+                    <div class="demo-buttons">
+                        <button type="button" class="btn-demo" id="btn-demo-normal" data-img="demo_normal">
+                            <span class="badge badge-normal">Normal</span>
+                            Healthy Lungs
+                        </button>
+                        <button type="button" class="btn-demo" id="btn-demo-pneumonia" data-img="demo_pneumonia">
+                            <span class="badge badge-pneu">Pneumonia</span>
+                            Infected Lungs
+                        </button>
+                    </div>
+                </div>
+
+                <div class="divider"><span>OR</span></div>
+
+                <!-- Custom Upload -->
+                <div class="upload-section">
+                    <h3>Upload Custom X-Ray</h3>
+                    <label for="file-upload" class="dropzone" id="dropzone">
+                        <input type="file" id="file-upload" accept="image/png, image/jpeg, image/jpg" style="display: none;">
+                        <div class="dropzone-content">
+                            <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                            <span class="primary-text" id="upload-status-text">Choose file or drag here</span>
+                            <span class="secondary-text">Supports PNG, JPG, JPEG</span>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Run Button -->
+                <button type="button" class="btn-primary" id="btn-analyze" disabled>
+                    Run AI Analysis
+                </button>
+            </section>
+
+            <!-- Right Panel: Visualizer & Output -->
+            <section class="output-panel card" id="output-panel">
+                <div class="empty-state" id="empty-state">
+                    <svg class="empty-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                    <h3>Ready for Analysis</h3>
+                    <p>Load an image on the left and click "Run AI Analysis" to calculate predictions and view Grad-CAM feature heatmaps.</p>
+                </div>
+
+                <!-- Loading Indicator -->
+                <div class="loader-container" id="loader-container" style="display: none;">
+                    <div class="spinner"></div>
+                    <h3>Processing Radiograph...</h3>
+                    <p>Analyzing chest anatomy and calculating activation heatmaps...</p>
+                </div>
+
+                <!-- Results View -->
+                <div class="results-view" id="results-view" style="display: none;">
+                    <!-- Predictions Summary Header -->
+                    <div class="results-header">
+                        <div class="result-badge-container">
+                            <span class="result-class-label" id="result-class">NORMAL</span>
+                            <span class="result-confidence-pct" id="result-confidence">98.4% Confidence</span>
+                        </div>
+                    </div>
+
+                    <!-- Images Side by Side -->
+                    <div class="image-showcase">
+                        <div class="img-box">
+                            <h4>Original X-Ray</h4>
+                            <div class="img-container">
+                                <img src="" id="img-original" alt="Original Chest X-Ray">
+                            </div>
+                        </div>
+                        <div class="img-box">
+                            <h4>AI Attention Map (CAM)</h4>
+                            <div class="img-container">
+                                <img src="" id="img-heatmap" alt="Class Activation Map Heatmap">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Explanation Card -->
+                    <div class="explanation-card" id="explanation-card">
+                        <h3>Diagnostic Explanation</h3>
+                        <div class="explanation-content" id="explanation-text">
+                            <!-- Explanation HTML injected here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Script File -->
+    <script src="/static/app.js"></script>
+</body>
+</html>
