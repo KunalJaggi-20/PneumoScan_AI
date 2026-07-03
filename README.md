@@ -196,19 +196,14 @@ You can train the model using train.py
 
 🌐 Live Demo
 
-
-
-🚧 Coming soon (deployment in progress)
-
-
+You can access the live web application here:
+👉 **[PneumoScan AI on Render](https://pneumoscan-ai-4ww8.onrender.com)**
 
 🚀 Future Improvements
 
 Reduce false negatives
 
 Add confidence score output
-
-Deploy app online
 
 Improve generalization
 
