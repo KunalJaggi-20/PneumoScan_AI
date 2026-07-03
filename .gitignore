@@ -1,0 +1,15 @@
+venv/
+__pycache__/
+
+# Data
+data/
+
+# Models
+model/*.pth
+
+# Images
+*.png
+*.jpg
+*.jpeg
+!confusion_matrix.png
+!metrics_chart.png
