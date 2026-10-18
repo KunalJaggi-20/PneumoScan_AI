@@ -18,8 +18,12 @@ RUN pip install --no-cache-dir torch torchvision --index-url https://download.py
 # Copy app code
 COPY . .
 
+# Pre-download and optimize the model weights during container build
+RUN python download_pretrained_weights.py
+
 # Expose server port
 EXPOSE 5000
 
-# Start server using Gunicorn WSGI
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "1", "--threads", "4", "--timeout", "120", "server:app"]
+# Start server using Gunicorn WSGI, dynamically binding to Render's PORT or defaulting to 5000
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:${PORT:-5000} --workers 1 --threads 4 --timeout 120 server:app"]
+
